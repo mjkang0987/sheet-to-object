@@ -4,7 +4,7 @@ const multiparty = require('multiparty');
 const xlsx = require('xlsx');
 const app = express();
 const path = require('path');
-const Fiber = require('fibers');
+const _fiber = require('fibers');
 const fs = require('fs');
 const os = require('os');
 const sass = require('sass');
@@ -33,23 +33,27 @@ const BOOLEAN = {
   isRecommend: false
 };
 
-
 app.get('/', (req, res, next) => {
   res.sendFile(`${__dirname}/src/views/index.html`);
 });
 
-sass.render({
-  file       : './src/styles/styles.scss',
-  sourceMap  : true,
-  outputStyle: 'expanded',
-  outFile    : './src/styles/styles.css',
-  fiber      : Fiber
-}, (err, result) => {
-  if (!err) {
-    fs.writeFile('./src/styles/styles.css', result.css, _ => {
-    });
-  }
-});
+const style = './src/styles/styles.scss';
+
+const renderSass = _ => {
+  return sass.renderSync({
+    file: style,
+    outputStyle: 'expanded'
+  })
+}
+
+const changeWatch = _ => {
+  fs.watchFile(style, async _ => {
+    const changeStyle = await renderSass();
+    await fs.writeFile('./src/styles/styles.css', changeStyle.css.toString(), _ => {});
+  });
+};
+
+changeWatch()
 
 app.use('/src/styles', express.static(path.join(__dirname, '/src/styles')));
 app.use('/src/scripts', express.static(path.join(__dirname, '/src/scripts')));
