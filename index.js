@@ -4,6 +4,7 @@ const multiparty = require('multiparty');
 const xlsx = require('xlsx');
 const app = express();
 const path = require('path');
+const Fiber = require('fibers');
 const fs = require('fs');
 const os = require('os');
 const sass = require('sass');
@@ -55,17 +56,19 @@ app.get('/', (req, res, next) => {
 });
 
 sass.render({
-  file       : './styles/styles.scss',
+  file       : './src/styles/styles.scss',
   sourceMap  : true,
   outputStyle: 'expanded',
-  outFile    : './styles/styles.css'
+  outFile    : './src/styles/styles.css',
+  fiber      : Fiber
 }, (err, result) => {
   if (!err) {
-    fs.writeFile('./styles/styles.css', result.css, _ => {});
+    fs.writeFile('./styles/styles.css', result.css, _ => {
+    });
   }
 });
 
-app.use('/styles', express.static(path.join(__dirname, '/styles')));
+app.use('/src/styles', express.static(path.join(__dirname, '/src/styles')));
 
 app.post('/', (req, res, next) => {
   const resData = {data: []};
