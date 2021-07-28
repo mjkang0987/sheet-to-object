@@ -18,10 +18,16 @@ app.use(bodyParser.urlencoded({
 app.get('/', (req, res, next) => {
   let contents = `<!DOCTYPE html>
     <html lang="ko">
+    <head>
+      <title>sheet to json</title>
+    </head>
     <body>
-      <form action="/" method="POST" enctype="multipart/form-data">
+      <form 
+        action="/" 
+        method="POST" 
+        enctype="multipart/form-data">
         <input type="file" name="xlsx">
-        <input type="submit">
+        <button type="submit">업로드</button>
       </form>
     </body>
     </html>`;
