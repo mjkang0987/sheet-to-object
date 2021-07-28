@@ -5,16 +5,21 @@
   <link
     rel="stylesheet"
     href="/src/styles/styles.css">
+  <script
+    src="/src/scripts/index.js">
+  </script>
 </head>
 <body>
 <form
   action="/"
   method="POST"
   enctype="multipart/form-data">
-  <input
-    type="file"
-    name="xlsx">
-  <button type="submit">업로드</button>
+  <div class="form-wrap">
+    <input
+      type="file"
+      name="xlsx">
+    <button type="submit">업로드</button>
+  </div>
 </form>
 </body>
 </html>

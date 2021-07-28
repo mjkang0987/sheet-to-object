@@ -52,6 +52,7 @@ sass.render({
 });
 
 app.use('/src/styles', express.static(path.join(__dirname, '/src/styles')));
+app.use('/src/scripts', express.static(path.join(__dirname, '/src/scripts')));
 
 app.post('/', (req, res, next) => {
   const resData = {data: []};
