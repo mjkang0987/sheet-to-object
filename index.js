@@ -15,6 +15,20 @@ app.use(bodyParser.urlencoded({
   extended: false,
 }));
 
+const STATES = {
+  BEST     : 'best',
+  BRAND    : 'brand',
+  KEYWORD  : 'keyword',
+  RECOMMEND: 'recommend'
+};
+
+const BOOLEAN = {
+  isBest     : false,
+  isBrand    : false,
+  isKeyword  : false,
+  isRecommend: false
+};
+
 app.get('/', (req, res, next) => {
   let contents = `<!DOCTYPE html>
     <html lang="ko">
@@ -43,35 +57,54 @@ app.post('/', (req, res, next) => {
   });
 
   form.on('file', (name, file) => {
+    const fileName = file.originalFilename;
     const workbook = xlsx.readFile(file.path);
     const sheetNames = Object.keys(workbook.Sheets).filter(sheet => sheet !== 'guide');
 
-    sheetNames.map((sheet, i) => {
-      const products = xlsx.utils.sheet_to_json(workbook.Sheets[sheet]);
+    Object.keys(STATES)
+      .map(state => BOOLEAN[`is${state.toLowerCase()
+        .replace(/(^|\s)\S/g, firstString => firstString.toUpperCase())}`] = fileName.includes(state.toLowerCase()));
 
-      products.sort((a, b) => {
-        return +(a.index > b.index) || +(a.index === b.index) - 1;
+    const {isBest, isBrand, isKeyword, isRecommend} = BOOLEAN;
+
+    const generatorCuration = _ => {
+      sheetNames.map((sheet, i) => {
+        const products = xlsx.utils.sheet_to_json(workbook.Sheets[sheet]);
+
+        products.sort((a, b) => {
+          return +(a.index > b.index) || +(a.index === b.index) - 1;
+        });
+
+        products.map(product => {
+          product.price = {
+            origin: product.origin === undefined ? 0 : product.origin,
+            sale  : product.sale === undefined ? 0 : product.sale
+          };
+
+          product.badge = product.badge ? product.badge.replace(/(\s*)/g, '').split(',') : [];
+
+          delete product.origin;
+          delete product.sale;
+        });
+
+        data[i] = {
+          category: sheet,
+          products
+        };
       });
+    };
 
-      products.map(product => {
-        product.price = {
-          origin: product.origin === undefined ? 0 : product.origin,
-          sale: product.sale === undefined ? 0 : product.sale
-        }
+    const generatorBrand = _ => {
+      console.log('brand');
+    };
 
-        product.badge = product.badge ? product.badge.split(',') : [];
+    const generatorKeyword = _ => {
+      console.log('keyword');
+    };
 
-        delete product.origin;
-        delete product.sale
-      });
-
-      console.log(products)
-      data[i] = {
-        category: sheet,
-        products
-      };
-    })
-
+    if (isRecommend || isBest) generatorCuration();
+    if (isKeyword) generatorKeyword();
+    if (isBrand) generatorBrand();
   });
 
   form.on('close', () => {
