@@ -33,26 +33,9 @@ const BOOLEAN = {
   isRecommend: false
 };
 
+
 app.get('/', (req, res, next) => {
-  let contents = `<!DOCTYPE html>
-    <html lang="ko">
-    <head>
-      <title>sheet to json</title>
-      <link 
-        rel="stylesheet"
-        href="./styles/styles.css">
-    </head>
-    <body>
-      <form 
-        action="/" 
-        method="POST" 
-        enctype="multipart/form-data">
-        <input type="file" name="xlsx">
-        <button type="submit">업로드</button>
-      </form>
-    </body>
-    </html>`;
-  res.send(contents);
+  res.sendFile(`${__dirname}/src/views/index.html`);
 });
 
 sass.render({
