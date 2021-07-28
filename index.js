@@ -3,7 +3,10 @@ const bodyParser = require('body-parser');
 const multiparty = require('multiparty');
 const xlsx = require('xlsx');
 const app = express();
+const path = require('path');
+const fs = require('fs');
 const os = require('os');
+const sass = require('sass');
 const port = 3000;
 const interfaces = os.networkInterfaces();
 const ips = Object.keys(interfaces);
@@ -34,6 +37,9 @@ app.get('/', (req, res, next) => {
     <html lang="ko">
     <head>
       <title>sheet to json</title>
+      <link 
+        rel="stylesheet"
+        href="./styles/styles.css">
     </head>
     <body>
       <form 
@@ -47,6 +53,19 @@ app.get('/', (req, res, next) => {
     </html>`;
   res.send(contents);
 });
+
+sass.render({
+  file       : './styles/styles.scss',
+  sourceMap  : true,
+  outputStyle: 'expanded',
+  outFile    : './styles/styles.css'
+}, (err, result) => {
+  if (!err) {
+    fs.writeFile('./styles/styles.css', result.css, _ => {});
+  }
+});
+
+app.use('/styles', express.static(path.join(__dirname, '/styles')));
 
 app.post('/', (req, res, next) => {
   const resData = {data: []};
