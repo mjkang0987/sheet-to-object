@@ -46,7 +46,7 @@ sass.render({
   fiber      : Fiber
 }, (err, result) => {
   if (!err) {
-    fs.writeFile('./styles/styles.css', result.css, _ => {
+    fs.writeFile('./src/styles/styles.css', result.css, _ => {
     });
   }
 });
