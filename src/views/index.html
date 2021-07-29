@@ -12,11 +12,20 @@
   action="/"
   method="POST"
   enctype="multipart/form-data">
-  <div class="form-wrap">
-    <input
-      type="file"
-      name="xlsx">
-    <button type="submit">업로드</button>
+  <div class="sheet">
+    <div class="sheet-path"></div>
+    <div class="sheet-btn">
+      <input
+        type="file"
+        name="file"
+        id="sheet-file">
+      <label for="sheet-file">파일찾기</label>
+      <button
+        type="submit"
+        class="btn-submit">
+        업로드
+      </button>
+    </div>
   </div>
 </form>
 </body>

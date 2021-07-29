@@ -1,6 +1,88 @@
-body {
-  background: #000;
-  color: #fff;
+@charset "UTF-8";
+body,
+div,
+button,
+input {
+  padding: 0;
+  margin: 0;
 }
 
-/*# sourceMappingURL=styles.css.map */
+body,
+html {
+  height: 100%;
+}
+
+body {
+  text-align: center;
+}
+body form {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.sheet {
+  display: inline-flex;
+  width: 500px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  border: dashed 1px #a8a8a8;
+}
+.sheet form {
+  display: inline-flex;
+}
+.sheet input[type=file] {
+  display: none;
+}
+.sheet-path {
+  text-align: left;
+  padding-bottom: 20px;
+  font-weight: bold;
+  color: #333;
+  font-size: 20px;
+}
+.sheet-path::before {
+  content: "💾";
+  text-align: left;
+  margin-right: 5px;
+  font-weight: bold;
+  color: #333;
+  font-size: 20px;
+}
+.sheet-path:empty::before {
+  content: "⚠️ 현재 등록된 파일이 없습니다.";
+}
+.sheet-btn {
+  display: flex;
+}
+.sheet button,
+.sheet label {
+  appearance: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 15px 30px;
+  border: none;
+  transition: box-shadow 0.2s;
+}
+.sheet button:hover,
+.sheet label:hover {
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.3);
+}
+.sheet button + button,
+.sheet label + button {
+  margin-left: 10px;
+}
+.sheet [for=sheet-file] {
+  display: inline-block;
+  align-items: center;
+  background-color: #009ba8;
+  color: #fff;
+}
+.sheet .btn-submit {
+  background-color: #333;
+  color: #fff;
+}
