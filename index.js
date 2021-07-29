@@ -42,7 +42,8 @@ const style = './src/styles/styles.scss';
 const renderSass = _ => {
   return sass.renderSync({
     file: style,
-    outputStyle: 'expanded'
+    outputStyle: 'expanded',
+    fiber: _fiber
   })
 }
 
