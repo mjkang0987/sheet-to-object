@@ -427,6 +427,11 @@ fflate@^0.3.8:
   resolved "https://registry.yarnpkg.com/fflate/-/fflate-0.3.11.tgz#2c440d7180fdeb819e64898d8858af327b042a5d"
   integrity sha512-Rr5QlUeGN1mbOHlaqcSYMKVpPbgLy0AWT/W0EHxA6NGI12yO1jpoui2zBBvU2G824ltM6Ut8BFgfHSBGfkmS0A==
 
+fiber@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/fiber/-/fiber-1.0.4.tgz#699e9c58171d685b1a369c98d7433969133328de"
+  integrity sha1-aZ6cWBcdaFsaNpyY10M5aRMzKN4=
+
 fibers@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/fibers/-/fibers-5.0.0.tgz#3a60e0695b3ee5f6db94e62726716fa7a59acc41"
