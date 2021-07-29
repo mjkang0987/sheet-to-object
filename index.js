@@ -106,7 +106,16 @@ app.post('/', (req, res, next) => {
     };
 
     const generatorBrand = _ => {
-      console.log('brand');
+      const products = xlsx.utils.sheet_to_json(workbook.Sheets[sheetNames[0]]);
+
+      products.map(product => {
+        product.href = product.href.replace(/(\s*)/g, '').split(',');
+        product.productImg = product.productImg.replace(/(\s*)/g, '').split(',');
+      });
+
+      data[0] = {
+        products
+      };
     };
 
     const generatorKeyword = _ => {
