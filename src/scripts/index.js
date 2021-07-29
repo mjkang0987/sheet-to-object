@@ -25,7 +25,6 @@ const commonJS = (_ => {
 
   const bindFilePath = _ => {
     const setFilePath = e => {
-      console.log(e.target)
       const fileName = e.target.files[0].name;
       const pathEl = docSelector({el: `.${PATH_EL}`})
       pathEl.textContent = fileName;
