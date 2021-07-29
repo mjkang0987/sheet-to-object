@@ -110,7 +110,15 @@ app.post('/', (req, res, next) => {
     };
 
     const generatorKeyword = _ => {
-      console.log('keyword');
+      const products = xlsx.utils.sheet_to_json(workbook.Sheets[sheetNames[0]]);
+
+      products.sort((a, b) => {
+        return +(a.index > b.index) || +(a.index === b.index) - 1;
+      });
+
+      data[0] = {
+        products
+      };
     };
 
     if (isRecommend || isBest) generatorCuration();
