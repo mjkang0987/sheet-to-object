@@ -109,7 +109,7 @@ app.post('/', (req, res, next) => {
       const products = xlsx.utils.sheet_to_json(workbook.Sheets[sheetNames[0]]);
 
       products.map(product => {
-        product.href = product.href.replace(/(\s*)/g, '').split(',');
+        product.href = product.href.replace(/(\r\n\t|\n|\r\t)/gm, '').replace(/(\s*)/g, '').split(',');
         product.productImg = product.productImg.replace(/(\s*)/g, '').split(',');
       });
 
