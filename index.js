@@ -114,7 +114,7 @@ app.post('/', (req, res, next) => {
       });
 
       data[0] = {
-        products
+        recommendKeyword: products
       };
     };
 
@@ -126,7 +126,7 @@ app.post('/', (req, res, next) => {
       });
 
       data[0] = {
-        products
+        keyword: products
       };
     };
 
